@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Proposal</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #fcdcdc;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        h1 {
+            color: #d32f2f;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 5px;
+            position: relative;
+        }
+        .yes-btn {
+            background-color: #ff4081;
+            color: white;
+        }
+        .no-btn {
+            background-color: #ccc;
+        }
+        .no-btn:hover {
+            transform: translate(calc(50vw - 60px - var(--random-x)), calc(50vh - 20px - var(--random-y)));
+        }
+        .confetti {
+            position: fixed;
+            top: -10px;
+            width: 10px;
+            height: 10px;
+            background-color: red;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: fall 3s linear infinite;
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Will You Be My Valentine? 💖</h1>
+        <div class="buttons">
+            <button class="yes-btn" onclick="acceptProposal()">Yes 💕</button>
+            <button class="no-btn" id="no-btn">No 😢</button>
+        </div>
+        <p id="message" style="margin-top: 10px; font-weight: bold;"></p>
+    </div>
+    <script>
+        function acceptProposal() {
+            document.getElementById('message').innerText = "Ahona! I love you! 💖🥰";
+            startConfetti();
+        }
+        
+        document.getElementById('no-btn').addEventListener('mouseover', function() {
+            this.style.setProperty('--random-x', Math.random() * 200 + 'px');
+            this.style.setProperty('--random-y', Math.random() * 200 + 'px');
+        });
+        
+        function startConfetti() {
+            let duration = 10000; // 10 seconds
+            let endTime = Date.now() + duration;
+            function createConfetti() {
+                if (Date.now() > endTime) return;
+                let confetti = document.createElement("div");
+                confetti.classList.add("confetti");
+                confetti.style.left = Math.random() * window.innerWidth + "px";
+                confetti.style.top = "-10px";
+                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 3000);
+                requestAnimationFrame(createConfetti);
+            }
+            createConfetti();
+        }
+    </script>
+</body>
+</html>
